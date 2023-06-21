@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     //SELECCIONANDO ELEMENTO DE LA INTERFAZ
     const inputEmail = document.querySelector('#email');
+    const inputCC = document.querySelector('#CC')
     const inputAsunto = document.querySelector('#asunto')
     const inputMensaje = document.querySelector('#mensaje')
     const formulario = document.querySelector('#formulario')
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function(){
     inputAsunto.addEventListener('blur', validar);
     inputMensaje.addEventListener('blur', validar);
     formulario.addEventListener('submit', enviarEmail);
+    inputCC.addEventListener('blur', validarCC)
+
     btnReset.addEventListener('click', function(e){
         e.preventDefault();
         resetFormulario()
@@ -119,6 +122,21 @@ document.addEventListener('DOMContentLoaded', function(){
         email.mensaje = '';
         formulario.reset();
         comprobarEmail();
+    };
+
+    function validarCC(e){
+        if(e.target.value.trim() === ''){ //VALIDA SI EL VALOR DEL FORM ESTA VACIO
+            limpiarAlerta(e.target.parentElement);
+            comprobarEmail();
+            return;
+        }
+        if(e.target.id === 'CC' && !validarEmail(e.target.value)){
+            mostrarAlerta(`El Email es incorrecto`, e.target.parentElement)
+            comprobarEmail();
+            return
+        }
+        }
+
     }
-});
+);
 
